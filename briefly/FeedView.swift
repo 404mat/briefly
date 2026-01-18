@@ -32,30 +32,35 @@ struct FeedView: View {
     ]
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Header Section
-            headerView
-            
-            // Navigation Tabs
-            tabsView
-            
-            // Article List
-            ScrollView {
-                VStack(spacing: 0) {
-                    ForEach(articles) { article in
-                        articleRow(article: article)
-                        Divider()
+        NavigationStack {
+            VStack(spacing: 0) {
+                // Header Section
+                headerView
+                
+                // Navigation Tabs
+                tabsView
+                
+                // Article List
+                ScrollView {
+                    VStack(spacing: 0) {
+                        ForEach(articles) { article in
+                            NavigationLink(destination: ArticleView(article: article)) {
+                                articleRow(article: article)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            Divider()
+                        }
+                        
+                        // Load More Button
+                        loadMoreButton
+                        
+                        // Footer
+                        footerView
                     }
-                    
-                    // Load More Button
-                    loadMoreButton
-                    
-                    // Footer
-                    footerView
                 }
             }
+            .background(Color.white)
         }
-        .background(Color.white)
     }
     
     var headerView: some View {
