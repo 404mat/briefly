@@ -17,7 +17,7 @@ export default function RootLayout() {
       <StatusBar style="auto" />
       <NativeTabs minimizeBehavior="onScrollDown">
         <NativeTabs.Trigger name="index">
-          <Label>Home</Label>
+          <Label>Feed</Label>
           <Icon sf="newspaper" drawable="custom_android_drawable" />
         </NativeTabs.Trigger>
         <NativeTabs.Trigger name="profile">
