@@ -10,9 +10,9 @@ export default function Index() {
       style={{ paddingTop: 16 }}
     >
       <Text
-        className="text-4xl italic text-text"
+        className="text-4xl text-text"
         style={{
-          fontFamily: 'InstrumentSerif_400Regular_Italic',
+          fontFamily: 'InstrumentSerif_400Regular',
           lineHeight: 44,
           letterSpacing: 0.5,
           textShadowColor: 'rgba(0, 0, 0, 0.2)',
@@ -20,7 +20,10 @@ export default function Index() {
           textShadowRadius: 2,
         }}
       >
-        Briefly
+        Brief<Text
+          className="italic"
+          style={{ fontFamily: 'InstrumentSerif_400Regular_Italic' }}
+        >ly</Text>
       </Text>
     </View>
   );

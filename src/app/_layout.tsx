@@ -8,7 +8,7 @@ import {
 import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
-import { InstrumentSerif_400Regular_Italic } from '@expo-google-fonts/instrument-serif';
+import { InstrumentSerif_400Regular, InstrumentSerif_400Regular_Italic } from '@expo-google-fonts/instrument-serif';
 import { SafeAreaListener } from 'react-native-safe-area-context';
 import { View } from 'react-native';
 import { Uniwind } from 'uniwind';
@@ -19,6 +19,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [fontsLoaded] = useFonts({
+    InstrumentSerif_400Regular,
     InstrumentSerif_400Regular_Italic,
   });
 
