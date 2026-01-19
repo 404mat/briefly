@@ -5,12 +5,21 @@ import {
 } from '@react-navigation/native';
 import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 import { StatusBar } from 'expo-status-bar';
+import { useFonts } from 'expo-font';
+import { InstrumentSerif_400Regular_Italic } from '@expo-google-fonts/instrument-serif';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [fontsLoaded] = useFonts({
+    InstrumentSerif_400Regular_Italic,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>

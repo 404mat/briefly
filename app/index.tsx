@@ -11,15 +11,15 @@ export default function Index() {
 
   const renderHeader = () => (
     <ThemedView
-      style={[
-        styles.header,
-        {
-          paddingTop: insets.top + 8,
-        },
-      ]}
+        style={[
+          styles.header,
+          {
+            paddingTop: insets.top + 16,
+          },
+        ]}
     >
       <ThemedText type="title" style={styles.headerTitle}>
-        briefly
+        Briefly
       </ThemedText>
     </ThemedView>
   );
@@ -57,8 +57,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
+    fontSize: 36,
+    fontFamily: 'InstrumentSerif_400Regular_Italic',
+    lineHeight: 44,
+    letterSpacing: 0.5,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
   listContent: {
     paddingBottom: 8,
