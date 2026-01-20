@@ -46,7 +46,7 @@ export function NewsCard({
               <IconSymbol
                 name="triangle.fill"
                 size={12}
-                color="currentColor"
+                color="#687076"
                 style={{ opacity: 0.7 }}
               />
               <Text className="text-xs opacity-70 text-text">{points}</Text>

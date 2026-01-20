@@ -1,9 +1,34 @@
 import { FlatList, Text, View } from 'react-native';
+import { useQuery } from '@tanstack/react-query';
 
 import { NewsCard } from '@/components/news-card';
-import { mockStories } from '@/data/mock-stories';
+import { fetchTopStories } from '@/api/hacker-news';
+import { formatTimeAgo } from '@/utils/time-format';
+
+interface FeedStory {
+  id: number;
+  title: string;
+  author: string;
+  points: number;
+  commentCount: number;
+  timeAgo: string;
+}
 
 export default function Index() {
+  const { data: stories, isLoading } = useQuery({
+    queryKey: ['topStories'],
+    queryFn: () => fetchTopStories(20),
+  });
+
+  const feedStories: FeedStory[] = stories?.map(story => ({
+    id: story.id,
+    title: story.title,
+    author: story.by,
+    points: story.score,
+    commentCount: story.descendants || 0,
+    timeAgo: formatTimeAgo(story.time * 1000),
+  })) || [];
+
   const renderHeader = () => (
     <View
       className="px-4 pb-4 items-center justify-center"
@@ -28,9 +53,17 @@ export default function Index() {
     </View>
   );
 
+  if (isLoading) {
+    return (
+      <View className="flex-1 items-center justify-center bg-background">
+        <Text className="text-text">Loading...</Text>
+      </View>
+    );
+  }
+
   return (
     <FlatList
-      data={mockStories}
+      data={feedStories}
       renderItem={({ item }) => (
         <NewsCard
           title={item.title}
@@ -40,7 +73,7 @@ export default function Index() {
           timeAgo={item.timeAgo}
         />
       )}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.id.toString()}
       ListHeaderComponent={renderHeader}
       showsVerticalScrollIndicator={false}
       className="flex-1 bg-background"
