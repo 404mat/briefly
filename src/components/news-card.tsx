@@ -17,7 +17,7 @@ export function NewsCard({
   timeAgo,
 }: NewsCardProps) {
   return (
-    <View className="mx-4 my-1.5 rounded-xl overflow-hidden bg-card shadow-md p-2.5">
+    <View className="mx-4 my-1.5 rounded-xl overflow-hidden bg-card shadow-sm ring-1 ring-slate-300/30 dark:ring-white/10 p-2.5">
       <Text className="text-base leading-[22px] mb-1.5 font-semibold text-text">
         {title}
       </Text>

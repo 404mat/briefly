@@ -23,8 +23,8 @@
 
     @variant light {
       --color-text: #11181c;
-      --color-background: #fff;
-      --color-card: #fff;
+      --color-background: #fff7ed;
+      --color-card: #fff7ed;
       --color-tint: #0a7ea4;
       --color-icon: #687076;
       --color-tab-icon-default: #687076;
