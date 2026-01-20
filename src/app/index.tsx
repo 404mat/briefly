@@ -76,7 +76,7 @@ export default function Index() {
       keyExtractor={(item) => item.id.toString()}
       ListHeaderComponent={renderHeader}
       showsVerticalScrollIndicator={false}
-      className="flex-1 bg-background"
+      className="flex-1 bg-background pt-safe"
     />
   );
 }
