@@ -12,6 +12,7 @@ interface FeedStory {
   points: number;
   commentCount: number;
   timeAgo: string;
+  url?: string;
 }
 
 export default function Index() {
@@ -27,6 +28,7 @@ export default function Index() {
     points: story.score,
     commentCount: story.descendants || 0,
     timeAgo: formatTimeAgo(story.time * 1000),
+    url: story.url,
   })) || [];
 
   const renderHeader = () => (
@@ -71,6 +73,7 @@ export default function Index() {
           points={item.points}
           commentCount={item.commentCount}
           timeAgo={item.timeAgo}
+          url={item.url}
         />
       )}
       keyExtractor={(item) => item.id.toString()}

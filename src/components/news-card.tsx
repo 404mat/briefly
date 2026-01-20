@@ -1,6 +1,8 @@
+import { useEffect, useState, useRef } from 'react';
 import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Image } from 'expo-image';
 import { StyleSheet, Text, View } from 'react-native';
+import { fetchOgImage } from '@/api/hacker-news';
 
 export interface NewsCardProps {
   title: string;
@@ -8,7 +10,7 @@ export interface NewsCardProps {
   points: number;
   commentCount: number;
   timeAgo: string;
-  imageUrl?: string;
+  url?: string;
 }
 
 export function NewsCard({
@@ -17,14 +19,57 @@ export function NewsCard({
   points,
   commentCount,
   timeAgo,
-  imageUrl,
+  url,
 }: NewsCardProps) {
-  const PlaceholderImage = () => (
-    <View className="w-full h-[90px] bg-placeholder" />
-  );
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [showPlaceholder, setShowPlaceholder] = useState(false);
+  const hasImageLoaded = useRef(false);
+
+  useEffect(() => {
+    if (!url) {
+      setImageUrl(null);
+      setShowPlaceholder(false);
+      hasImageLoaded.current = false;
+      return;
+    }
+
+    const mounted = { current: true };
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    async function loadImage() {
+      const ogImage = await fetchOgImage(url!);
+      if (mounted.current) {
+        if (ogImage) {
+          setImageUrl(ogImage);
+          setShowPlaceholder(true);
+          hasImageLoaded.current = true;
+        } else {
+          setShowPlaceholder(false);
+        }
+      }
+    }
+
+    loadImage();
+
+    timeoutId = setTimeout(async () => {
+      if (mounted.current && !hasImageLoaded.current) {
+        const ogImage = await fetchOgImage(url!);
+        if (mounted.current && ogImage) {
+          setImageUrl(ogImage);
+          setShowPlaceholder(true);
+          hasImageLoaded.current = true;
+        }
+      }
+    }, 2000);
+
+    return () => {
+      mounted.current = false;
+      clearTimeout(timeoutId);
+    };
+  }, [url]);
 
   return (
-    <View className="mx-4 my-1.5 rounded-xl overflow-hidden bg-transparent shadow-md">
+    <View className="mx-4 my-1.5 rounded-xl overflow-hidden bg-card shadow-md">
       {imageUrl ? (
         <Image
           source={imageUrl}
@@ -32,9 +77,9 @@ export function NewsCard({
           contentFit="cover"
           placeholder={{ blurhash: 'LGF5]+Yk^6#M@-5c,1J5@[or[Q6.' }}
         />
-      ) : (
-        <PlaceholderImage />
-      )}
+      ) : showPlaceholder ? (
+        <View className="w-full h-[90px] bg-placeholder" />
+      ) : null}
       <View className="p-2.5">
         <Text className="text-base leading-[22px] mb-1.5 font-semibold text-text">
           {title}

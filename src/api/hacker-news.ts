@@ -17,8 +17,39 @@ export async function fetchTopStories(limit: number = 20): Promise<HNStory[]> {
   const topIds = ids.slice(0, limit);
 
   const stories = await Promise.all(
-    topIds.map(id => fetchStory(id).catch(() => null))
+    topIds.map((id) => fetchStory(id).catch(() => null))
   );
 
   return stories.filter((story): story is HNStory => story !== null);
+}
+
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+
+export async function fetchOgImage(url: string): Promise<string | null> {
+  if (!url) {
+    return null;
+  }
+
+  try {
+    const proxyUrl = `${CORS_PROXY}${encodeURIComponent(url)}`;
+    const response = await fetch(proxyUrl);
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const html = await response.text();
+
+    const ogImageMatch = html.match(
+      /<meta\s+property="og:image"\s+content="([^"]+)"/i
+    );
+    const twitterImageMatch = html.match(
+      /<meta\s+name="twitter:image"\s+content="([^"]+)"/i
+    );
+
+    const imageUrl = ogImageMatch?.[1] || twitterImageMatch?.[1] || null;
+    return imageUrl;
+  } catch {
+    return null;
+  }
 }

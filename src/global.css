@@ -11,23 +11,25 @@
 @layer theme {
   :root {
     @variant dark {
-      --color-text: #ECEDEE;
+      --color-text: #ecedee;
       --color-background: #151718;
+      --color-card: #1e1f20;
       --color-tint: #fff;
-      --color-icon: #9BA1A6;
-      --color-tab-icon-default: #9BA1A6;
+      --color-icon: #9ba1a6;
+      --color-tab-icon-default: #9ba1a6;
       --color-tab-icon-selected: #fff;
-      --color-placeholder: #2A2A2A;
+      --color-placeholder: #2a2a2a;
     }
 
     @variant light {
-      --color-text: #11181C;
+      --color-text: #11181c;
       --color-background: #fff;
+      --color-card: #fff;
       --color-tint: #0a7ea4;
       --color-icon: #687076;
       --color-tab-icon-default: #687076;
       --color-tab-icon-selected: #0a7ea4;
-      --color-placeholder: #E0E0E0;
+      --color-placeholder: #e0e0e0;
     }
   }
 }
