@@ -6,6 +6,7 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 import { StatusBar } from 'expo-status-bar';
@@ -22,6 +23,7 @@ export default function RootLayout() {
     InstrumentSerif_400Regular,
     InstrumentSerif_400Regular_Italic,
   });
+  const queryClient = new QueryClient();
 
   if (!fontsLoaded) {
     return null;
@@ -34,22 +36,24 @@ export default function RootLayout() {
       }}
     >
       <View className="flex-1 bg-background">
-        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-          <StatusBar style="auto" />
-          <NativeTabs minimizeBehavior="onScrollDown">
-            <NativeTabs.Trigger name="index">
-              <Label>Feed</Label>
-              <Icon sf="newspaper" drawable="custom_android_drawable" />
-            </NativeTabs.Trigger>
-            <NativeTabs.Trigger name="profile">
-              <Icon sf="person" drawable="custom_profile_drawable" />
-              <Label>Profile</Label>
-            </NativeTabs.Trigger>
-            <NativeTabs.Trigger name="search" role="search">
-              <Label>Search</Label>
-            </NativeTabs.Trigger>
-          </NativeTabs>
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <StatusBar style="auto" />
+            <NativeTabs minimizeBehavior="onScrollDown">
+              <NativeTabs.Trigger name="index">
+                <Label>Feed</Label>
+                <Icon sf="newspaper" drawable="custom_android_drawable" />
+              </NativeTabs.Trigger>
+              <NativeTabs.Trigger name="profile">
+                <Icon sf="person" drawable="custom_profile_drawable" />
+                <Label>Profile</Label>
+              </NativeTabs.Trigger>
+              <NativeTabs.Trigger name="search" role="search">
+                <Label>Search</Label>
+              </NativeTabs.Trigger>
+            </NativeTabs>
+          </ThemeProvider>
+        </QueryClientProvider>
       </View>
     </SafeAreaListener>
   );
