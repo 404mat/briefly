@@ -29,23 +29,21 @@ export default function Index() {
   );
 
   return (
-    <View className="flex-1 bg-background p-safe">
-      <FlatList
-        data={mockStories}
-        renderItem={({ item }) => (
-          <NewsCard
-            title={item.title}
-            author={item.author}
-            points={item.points}
-            commentCount={item.commentCount}
-            timeAgo={item.timeAgo}
-          />
-        )}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={renderHeader}
-        contentContainerStyle={{ paddingBottom: 8 }}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
+    <FlatList
+      data={mockStories}
+      renderItem={({ item }) => (
+        <NewsCard
+          title={item.title}
+          author={item.author}
+          points={item.points}
+          commentCount={item.commentCount}
+          timeAgo={item.timeAgo}
+        />
+      )}
+      keyExtractor={(item) => item.id}
+      ListHeaderComponent={renderHeader}
+      showsVerticalScrollIndicator={false}
+      className="flex-1 bg-background"
+    />
   );
 }

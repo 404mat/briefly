@@ -1,18 +1,18 @@
 import '../global.css';
 
+import { InstrumentSerif_400Regular, InstrumentSerif_400Regular_Italic } from '@expo-google-fonts/instrument-serif';
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
 import { Icon, Label, NativeTabs } from 'expo-router/unstable-native-tabs';
 import { StatusBar } from 'expo-status-bar';
-import { useFonts } from 'expo-font';
-import { InstrumentSerif_400Regular, InstrumentSerif_400Regular_Italic } from '@expo-google-fonts/instrument-serif';
-import { SafeAreaListener } from 'react-native-safe-area-context';
 import { View } from 'react-native';
-import { Uniwind } from 'uniwind';
 import 'react-native-reanimated';
+import { SafeAreaListener } from 'react-native-safe-area-context';
+import { Uniwind } from 'uniwind';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
